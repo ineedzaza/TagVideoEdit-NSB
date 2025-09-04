@@ -1,0 +1,129 @@
+{if:{arg:0}|=|bandicam|then:{set:command|{iscript: load {iv} m
+load https://raw.githubusercontent.com/Idontknowwhatimdoing0/veb-nsb/refs/heads/main/bandicam.png watermark
+overlay m watermark
+render m
+}}|else:{if:{arg:0}|=|hypercam|then:{set:command|{iscript: load {iv} m
+load https://raw.githubusercontent.com/Idontknowwhatimdoing0/veb-nsb/refs/heads/main/hypercam.png watermark
+overlay m watermark
+render m
+}}|else:{if:{arg:0}|=|holdframe|then:{set:command|{iscript: load {iv} m
+copy m audio
+convert audio audio/mp3
+convert m image/png
+convert m image/gif
+repeatduration m {arg:1}
+convert m video/mp4
+audioputreplace m audio
+render m
+}}|else:{if:{arg:0}|=|speed|then:{set:command|{iscript: load {iv} m
+speed m {arg:1}
+render m
+}}|else:{if:{arg:0}|=|contrast|then:{set:command|{iscript: load {iv} m
+contrast m {arg:1}
+render m
+}}|else:{if:{arg:0}|=|hue|then:{set:command|{iscript: load {iv} m
+hueshifthsvffmpeg m {arg:1}
+render m
+}}|else:{if:{arg:0}|=|hcycle|then:{set:command|{iscript: load {iv} m
+get m duration v
+get m width w
+get m height h
+copy m audio
+speed m 1*{arg:1}
+foreachframe m 0 mfc hueshifthsvffmpeg mx 0.01+(1*(idx/mfc))
+speed m 1/{arg:1}
+audioputreplace m audio
+render m
+}}|else:{if:{arg:0}|=|vreverse|then:{set:command|{iscript: load {iv} m
+copy m a
+reverse m
+audioputreplace m a
+render m
+}}|else:{if:{arg:0}|=|areverse|then:{set:command|{iscript: load {iv} m
+copy m a
+reverse a
+audioputreplace m a
+render m
+}}|else:{if:{arg:0}|=|reverse|then:{set:command|{iscript: load {iv} m
+reverse m
+render m
+}}|else:{if:{arg:0}|=|playreverse|then:{set:command|{iscript: load {iv} 2
+copy 2 1
+reverse {arg:1}
+concat m 2 1
+render 2
+}}|else:{if:{arg:0}|=|hmirror|then:{set:command|{if:{arg:1}|=|1|then:
+{set:side|left}|else:{if:{arg:1}|=|2|then:
+{set:side|right}|else:{set:side|left}}}{iscript: load {iv} m
+mirror{get:side} m
+render m
+}}|else:{if:{arg:0}|=|vmirror|then:{set:command|{if:{arg:1}|=|1|then:
+{set:side|top}|else:{if:{arg:1}|=|2|then:
+{set:side|bottom}|else:{set:side|top}}}{iscript: load {iv} m
+mirror{get:side} m
+render m
+}}|else:{if:{arg:0}|=|invert|then:{set:command|{iscript: load {iv} m
+invert m
+render m
+}}|else:{if:{arg:0}|=|hflip|then:{set:command|{iscript: load {iv} m
+flop m
+render m
+}}|else:{if:{arg:0}|=|vflip|then:{set:command|{iscript: load {iv} m
+flip m
+render m
+}}|else:{if:{arg:0}|=|framerate|then:{set:command|{iscript: load {iv} m
+setfps m {arg:1}
+render m
+}}|else:{if:{arg:0}|=|start|then:{set:command|{iscript: load {iv} m
+snip m {arg:1}
+render m
+}}|else:{if:{arg:0}|=|end|then:{set:command|{iscript: load {iv} m
+snip m 0 {arg:1}
+render m
+}}|else:{if:{arg:0}|=|volume|then:{set:command|{iscript: load {iv} m
+volume m {arg:1}
+render m
+}}|else:{if:{arg:0}|=|mute|then:{set:command|{iscript: load {iv} m
+volume m 0
+render m
+}}|else:{if:{arg:0}|=|bass|then:{set:command|{sh:
+load {av}
+ffmpeg -i $FILE_1 audio.wav
+sox audio.wav audio1.wav bass {arg:1}
+ffmpeg -i $FILE_1 -i audio1.wav -map 0:v -map 1:a -shortest ./output/$(basename $FILE_1)}}|else:{if:{arg:0}|=|music|then:{set:command|{iscript: load {iv} m
+load {arg:1} mus
+audioputmix m mus
+render m
+}}|else:{if:{arg:0}|=|invertred|then:{set:command|{iscript:
+load {iv} m
+invert m
+huecurvergba m red 0 1
+render m
+}}|else:{if:{arg:0}|=|invertgreen|then:{set:command|{iscript:
+load {iv} m
+invert m
+huecurvergba m green 0 1
+render m
+}}|else:{if:{arg:0}|=|invertblue|then:{set:command|{iscript:
+load {iv} m
+invert m
+huecurvergba m blue 0 1
+render m
+}}|else:{if:{arg:0}|=|gm4|then:{set:command|{iscript:
+load {iv} m
+huecurvergba m all 0 1 0
+}}|else:{if:{arg:0}|=|whar|then:{set:command|{iscript:
+load {iv} m
+spin m true false true
+slide m 1 left
+invertrgba m 1 1 0
+render m
+}}|else:{if:{arg:0}|=|bgr|then:{set:command|{iscript:
+load {iv} m
+swaprgba m bgr
+render m
+}}|else:{if:{arg:0}|=|swapuv|then:{set:command|{iscript:
+load {iv} m
+swaprgba m bgr
+render m
+}}|else:{if:{arg:0}|=|help|then:{set:command|{code:.t veb <command> <command options?>} {text:for more information, contact beebo_robot64 on discord or see: https://github.com/GanerCodes/videoEditBot/COMMANDS.md } {eval:{get:command}}
